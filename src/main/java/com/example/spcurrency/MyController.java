@@ -35,7 +35,7 @@ public class MyController {
     }
     @GetMapping("/login")
     public String login() {
-        return "/login";
+        return "/login.html";
     }
     @GetMapping("/registered")
     public String registered(){

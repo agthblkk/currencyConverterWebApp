@@ -13,8 +13,12 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableJpaRepositories(
@@ -26,12 +30,12 @@ public class AppConfig implements WebMvcConfigurer {
         return new BCryptPasswordEncoder();
     }
     public static final String ADMIN = "admin";
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-                .addResourceHandler("/static/**")
-                .addResourceLocations("/WEB-INF/static/");
-    }
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry
+//                .addResourceHandler("resources/static/")
+//                .addResourceLocations("/resources/static/");
+//    }
 //    @Bean
 //    public UsersRepository usersRepository(){
 //        return new UsersService(dataSource());
