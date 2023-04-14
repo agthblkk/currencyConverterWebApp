@@ -2,6 +2,7 @@ package com.example.spcurrency;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,12 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.List;
-
-import static org.hibernate.cfg.AvailableSettings.USER;
-
 @Controller
-//@RequestMapping("/login")
 public class MyController {
 
     @Autowired
@@ -33,13 +29,25 @@ public class MyController {
         this.usersService = usersService;
         this.passwordEncoder = passwordEncoder;
     }
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/login";
+    }
     @GetMapping("/login")
     public String login() {
-        return "/login.html";
+        return "login.html";
     }
-    @GetMapping("/registered")
+    @PostMapping("/error")
+    public String error(){
+        return "error.html";
+    }
+    @PostMapping("/registered")
     public String registered(){
-        return "/registered.html";
+        return "registered.html";
+    }
+    @GetMapping("/logined")
+    public String logined(){
+        return "logined.html";
     }
     @GetMapping("/register")
     public String register(Model model){

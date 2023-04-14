@@ -27,31 +27,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/")
-                .hasAnyRole("USER", "ADMIN")
-                //.antMatchers("/admin") //@PreAuthorize
-                //    .hasRole("ADMIN")
-                .antMatchers("/register")
-                .permitAll()
-                .and()
-                .exceptionHandling()
-                .accessDeniedPage("/unauthorized")
-                .and()
-                .formLogin()
-                .loginPage("/login.html")
-                .loginProcessingUrl("/login")
-                .failureUrl("/login?error")
-                .usernameParameter("j_login")
-                .passwordParameter("j_password")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout");
+//        http
+//                .csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/")
+//                .hasAnyRole("USER", "ADMIN")
+//                //.antMatchers("/admin") //@PreAuthorize
+//                //    .hasRole("ADMIN")
+////                .antMatchers("/ssd")
+////                .permitAll()
+//                .and()
+//                .exceptionHandling()
+//                .accessDeniedPage("/unauthorized")
+//                .and()
+//                .formLogin()
+//                .loginPage("/login.html")
+//                .loginProcessingUrl("/login")
+//                .failureUrl("/login?error")
+//                .usernameParameter("j_login")
+//                .passwordParameter("j_password")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .permitAll()
+//                .logoutUrl("/logout")
+//                .logoutSuccessUrl("/login?logout");
     }
 }
 
