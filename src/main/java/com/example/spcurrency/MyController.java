@@ -2,7 +2,6 @@ package com.example.spcurrency;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.util.Collection;
 @Controller
@@ -23,49 +23,52 @@ public class MyController {
     private HistoryService historyService;
 
     private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UsersRepository usersRepository;
 
 
     public MyController(UsersService usersService, PasswordEncoder passwordEncoder) {
         this.usersService = usersService;
         this.passwordEncoder = passwordEncoder;
     }
-    @GetMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(){
         return "redirect:/login";
     }
-    @GetMapping("/login")
+//    @GetMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-        return "login.html";
+        return "login";
     }
-    @PostMapping("/error")
-    public String error(){
-        return "error.html";
-    }
-    @PostMapping("/registered")
+//    @PostMapping("/registered")
+    @RequestMapping(value = "/registered", method = RequestMethod.GET)
     public String registered(){
-        return "registered.html";
+        return "registered";
     }
-    @GetMapping("/logined")
+    @RequestMapping(value = "/logined", method = RequestMethod.GET)
     public String logined(){
-        return "logined.html";
+        return "logined";
     }
-    @GetMapping("/register")
-    public String register(Model model){
-//        UsersService user = new UsersService();
-        String name = model.addAttribute("name").toString();
-        String surname = model.addAttribute("surname").toString();
-        String username = model.addAttribute("username").toString();
-        String password = model.addAttribute("password").toString();
+//    @GetMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(Model model,
+                           @RequestParam(value = "name", required = false) String name,
+                           @RequestParam(value = "surname", required = false) String surname,
+                           @RequestParam(value = "username", required = false) String username,
+                           @RequestParam(value = "password", required = false) String password){
+        // Create a new user
+        Users user = new Users();
         UserRole role = UserRole.USER;
-        usersService.addUser(name, surname, username, password, role);
-        return "redirect:/registered";
-//        if(user.addUser(name, surname, username, password, role)){
-//            return "registered";
-//        }
-//        else{
-//            return "login";
-//        }
+        String passHash = passwordEncoder.encode("password");
+        user.setName(name);
+        user.setSurname(surname);
+        user.setUsername(username);
+        user.setPassword(passHash);
+        user.setRole(role);
 
+        // Save the user to the database
+        usersRepository.save(user);
+        return "registered";
     }
 
     @GetMapping("/admin")

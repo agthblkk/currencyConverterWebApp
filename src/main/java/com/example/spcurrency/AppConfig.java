@@ -13,13 +13,16 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-
+@EnableWebMvc
 @Configuration
 @EnableJpaRepositories(
         basePackages = {"com.example.spcurrency"},
@@ -40,6 +43,22 @@ public class AppConfig implements WebMvcConfigurer {
 //    public UsersRepository usersRepository(){
 //        return new UsersService(dataSource());
 //    }
+@Bean
+public BeanNameViewResolver beanNameViewResolver(){
+    return new BeanNameViewResolver();
+}
+    @Bean
+    public View login() {
+        return new JstlView("/resources/static/login.html");
+    }
+@Bean
+public ViewResolver internalResourceViewResolver() {
+    InternalResourceViewResolver bean = new InternalResourceViewResolver();
+    bean.setViewClass(JstlView.class);
+    bean.setPrefix("/resources/static");
+    bean.setSuffix(".html");
+    return bean;
+}
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
