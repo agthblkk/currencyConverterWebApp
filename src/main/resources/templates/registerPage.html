@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring3-3.dtd">
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="">
+    <title>Registration form</title>
+</head>
+<body>
+<!--    <div th:if="${registerForm}">-->
+        <form action="/register" , method="POST">
+            Login:<br/><input type="text" name="name"><br/>
+            Surname:<br/><input type="text" name="surname"><br/>
+            Username:<br/><input type="text" name="username"><br/>
+            Password:<br/><input type="password" name="password"><br/>
+            <input type="submit" />
+        </form>
+<!--    </div>-->
+<!--    <div th:if="${not registerForm}">-->
+<!--        <form action="/register" , method="POST">-->
+<!--            <h1>User has been saved</h1>-->
+<!--            <button>Now log in!</button>-->
+<!--        </form>-->
+<!--    </div>-->
+</body>
+</html>

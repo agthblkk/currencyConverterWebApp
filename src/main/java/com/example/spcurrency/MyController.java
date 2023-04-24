@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import java.util.Collection;
 @Controller
@@ -41,16 +40,24 @@ public class MyController {
         return "login";
     }
 //    @PostMapping("/registered")
-    @RequestMapping(value = "/registered", method = RequestMethod.GET)
-    public String registered(){
-        return "registered";
-    }
+//    @RequestMapping(value = "/register", method = RequestMethod.GET)
+//    public String registered(Model model){
+//        return "register";
+//    }
     @RequestMapping(value = "/logined", method = RequestMethod.GET)
     public String logined(){
         return "logined";
     }
-//    @GetMapping("/register")
+    @RequestMapping("/registerSuccessfully")
+    public String viewRegisterSuccessful(Model model) {
+        return "registeredSuccesfully";
+    }
     @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String viewRegisterPage(Model model){
+        return "registerPage";
+
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(Model model,
                            @RequestParam(value = "name", required = false) String name,
                            @RequestParam(value = "surname", required = false) String surname,
@@ -68,7 +75,7 @@ public class MyController {
 
         // Save the user to the database
         usersRepository.save(user);
-        return "registered";
+        return "redirect:/registerSuccessfully";
     }
 
     @GetMapping("/admin")
