@@ -39,15 +39,15 @@ public class MyController {
     public String login() {
         return "login";
     }
-//    @PostMapping("/registered")
-//    @RequestMapping(value = "/register", method = RequestMethod.GET)
-//    public String registered(Model model){
-//        return "register";
+//    @RequestMapping(value = "/process-login", method = RequestMethod.POST)
+//    public String processLogin(Model model, @RequestParam(value = "username", required = false) String username,
+//                             @RequestParam(value = "password", required = false) String password){
+//
 //    }
-    @RequestMapping(value = "/logined", method = RequestMethod.GET)
-    public String logined(){
-        return "logined";
-    }
+//    @RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
+//    public String logined(){
+//        return "logined";
+//    }
     @RequestMapping("/registerSuccessfully")
     public String viewRegisterSuccessful(Model model) {
         return "registeredSuccesfully";
@@ -66,7 +66,7 @@ public class MyController {
         // Create a new user
         Users user = new Users();
         UserRole role = UserRole.USER;
-        String passHash = passwordEncoder.encode("password");
+        String passHash = passwordEncoder.encode(password);
         user.setName(name);
         user.setSurname(surname);
         user.setUsername(username);
